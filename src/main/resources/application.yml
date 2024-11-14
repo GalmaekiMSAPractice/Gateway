@@ -6,6 +6,12 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Gate Way Global Filter
+            preLogger: true
+            postLogger: true
       routes:
         - id: first-service
           uri: http://localhost:8081/
@@ -13,8 +19,8 @@ spring:
             - Path=/first-service/**
           filters:
             - CustomFilter
-#            - AddRequestHeader=first-request, first-request-header2
-#            - AddResponseHeader=first-response, first-response-header2
+        #            - AddRequestHeader=first-request, first-request-header2
+        #            - AddResponseHeader=first-response, first-response-header2
         - id: second-service
           uri: http://localhost:8082/
           predicates:
@@ -29,4 +35,4 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone : http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka
