@@ -18,7 +18,12 @@ spring:
           predicates:
             - Path=/first-service/**
           filters:
-            - CustomFilter
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Gate Way Global Filter
+                preLogger: true
+                postLogger: true
         #            - AddRequestHeader=first-request, first-request-header2
         #            - AddResponseHeader=first-response, first-response-header2
         - id: second-service
